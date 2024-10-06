@@ -1,0 +1,10 @@
+parent
+arshad
+teacher
+waleed
+teacher
+adeel
+student
+zulqarnain
+student
+ayesha
