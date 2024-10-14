@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <stack>
+#include <queue>
 #include <string>
 
 using namespace std;
@@ -10,7 +10,15 @@ struct Entity {
     string name;
 };
 
-void writeToFile(stack<Entity>& entities) {
+struct CompareEntity {
+    bool operator()(const Entity& e1, const Entity& e2) {
+        if (e1.role == "parent" && (e2.role == "teacher" || e2.role == "student")) return false;
+        if (e1.role == "teacher" && e2.role == "student") return false;
+        return true; 
+    }
+};
+
+void writeToFile(priority_queue<Entity, deque<Entity>, CompareEntity> entities) {
     ofstream file("people.txt");
     if (file.is_open()) {
         while (!entities.empty()) {
@@ -44,7 +52,7 @@ int main() {
     cout << "Enter the total number of entities: ";
     cin >> count;
 
-    stack<Entity> entities;
+    priority_queue<Entity, deque<Entity>, CompareEntity> entities;
 
     for (int i = 0; i < count; i++) {
         string role, name;
@@ -53,27 +61,12 @@ int main() {
         cout << "Enter entity " << i + 1 << " name: ";
         cin >> name;
 
-        stack<Entity> tempStack;
-
-        while (!entities.empty() && (
-            (role == "student" && entities.top().role != "student") ||
-            (role == "teacher" && entities.top().role == "parent")
-            )) {
-            tempStack.push(entities.top());
-            entities.pop();
-        }
-
         entities.push({ role, name });
-
-        while (!tempStack.empty()) {
-            entities.push(tempStack.top());
-            tempStack.pop();
-        }
     }
 
     writeToFile(entities);
 
-    cout << "Contents of people.txt:" << endl;
+    cout << "Total people:\n";
     displayFile();
 
     return 0;
