@@ -2,6 +2,7 @@
 #include <fstream>
 #include <queue>
 #include <string>
+#include <deque>
 
 using namespace std;
 
@@ -14,6 +15,7 @@ struct CompareEntity {
     bool operator()(const Entity& e1, const Entity& e2) {
         if (e1.role == "parent" && (e2.role == "teacher" || e2.role == "student")) return false;
         if (e1.role == "teacher" && e2.role == "student") return false;
+        if (e1.role == e2.role) return false; 
         return true; 
     }
 };
@@ -66,7 +68,7 @@ int main() {
 
     writeToFile(entities);
 
-    cout << "Total people:\n";
+    cout << "Contents of people.txt:" << endl;
     displayFile();
 
     return 0;
