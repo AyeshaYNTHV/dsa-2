@@ -1,10 +1,10 @@
 parent
-arshad
+Arshad
+parent
+Hafeez
 teacher
-waleed
-teacher
-adeel
+Adeel
 student
-zulqarnain
+Iqra
 student
-ayesha
+Ayesha
