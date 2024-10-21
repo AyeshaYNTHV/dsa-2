@@ -1,10 +1,6 @@
 parent
-Arshad
-parent
-Hafeez
+ll
 teacher
-Adeel
+pp
 student
-Iqra
-student
-Ayesha
+ayesha
